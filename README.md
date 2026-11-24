@@ -106,7 +106,7 @@ Thresholds: US EPA AQI categories; WHO 2021 24-hour guideline (PM2.5 15 µg/m³)
 - **A day's peak AQI can be ozone**, not haze: in this model, afternoon ozone often sets KL's daily peak. PM2.5 is the haze figure.
 - **The air forecast reaches 3 days**; days 4–7 show weather only.
 - **Malay text** was written for this project and has not been reviewed by a native speaker.
-- **Scheduled runs can be late.** The update workflow had not run on GitHub at the time of writing; the first runs will show the real minutes per run.
+- **Scheduled runs can be late.** On 24 November 2026 a manual run of the update workflow took 9 seconds in its job (fetch, tests, build; nothing new to commit; deploy skipped for want of the API token). The commit-and-push step and the Cloudflare deploy step had not yet run on GitHub at the time of writing; the deploy was done by hand with wrangler.
 
 ## Licence
 
