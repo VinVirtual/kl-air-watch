@@ -197,3 +197,19 @@ test('the minutes math stays inside the free 2,000 minutes at every 3 hours, not
   const hourly = minutesMath(24);
   assert.ok(hourly.high > 1000);
 });
+
+test('the site writes no em dashes: built pages, feeds and data, and the templates that make them', () => {
+  // Owner's house style: commas, colons, full stops or "to" instead. Open-Meteo sends only numbers
+  // and codes, so every word on the built site comes from this repository; the font licences are
+  // quoted third-party text and are left alone.
+  const s = withAqi(snapshot(), { ipoh: 175 });
+  const p = project({ alerts: newAlerts({ ...s, locations: s.locations.map((l) => ({ ...l, aqiPeak24: 40 })) }) });
+  build(p);
+  assert.match(fs.readFileSync(path.join(p.outDir, 'alerts.xml'), 'utf8'), /Ipoh/);
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]));
+  const own = (f) => /\.(html|xml|json|css|js|mjs|txt|svg)$/.test(f) && !/LICENSE-/.test(path.basename(f));
+  const files = [...walk(p.outDir), ...walk(path.join(ROOT, 'scripts')), ...walk(path.join(ROOT, 'assets'))].filter(own);
+  assert.ok(files.length > 30, `scanned ${files.length} files`);
+  const hits = files.filter((f) => fs.readFileSync(f, 'utf8').includes('—')).map((f) => path.relative(ROOT, f));
+  assert.deepEqual(hits, []);
+});

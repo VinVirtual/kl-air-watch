@@ -125,7 +125,7 @@ const CONTRAST = `(pairs) => {
 }`;
 
 test('text colours meet WCAG AA contrast (4.5:1) in both themes, including on AQI colours', async () => {
-  const sel = ['.eyebrow', '.ms', '.hero-state', '.fine', '.model-time', '.haze-banner .hb-text', '.tile.aqi-good .tile-name', '.tile.aqi-moderate .tile-name', '.tile.aqi-sensitive .tile-name', '.day-rain', '.day-date', '.readout', '.colophon p'];
+  const sel = ['.eyebrow', '.ms', '.hero-state', '.fine', '.model-time', '.haze-banner .hb-text', '.tile.aqi-good .tile-name', '.tile.aqi-moderate .tile-name', '.tile.aqi-sensitive .tile-name', '.day-rain', '.day-date', '.readout', '.colophon p', '.tile.aqi-sensitive .tile-meta', '.legend', '.map-legend', '.facts dt', '.pollutants dt', '.hb-kicker', 'caption', 'details.chart-data summary'];
   for (const scheme of ['light', 'dark']) {
     const { page, ctx } = await open('index.html', { colorScheme: scheme });
     const ratios = await page.evaluate(`(${CONTRAST})(${JSON.stringify(sel)})`);
@@ -134,11 +134,17 @@ test('text colours meet WCAG AA contrast (4.5:1) in both themes, including on AQ
   }
 });
 
-test('with reduced motion the haze does not drift; without it, it does', async () => {
-  const still = await open('index.html', { reducedMotion: 'reduce' });
-  assert.equal(await still.page.evaluate(() => getComputedStyle(document.querySelector('.haze-a')).animationName), 'none');
-  await still.ctx.close();
-  const moving = await open('index.html', { reducedMotion: 'no-preference' });
-  assert.equal(await moving.page.evaluate(() => getComputedStyle(document.querySelector('.haze-a')).animationName), 'drift-a');
-  await moving.ctx.close();
+test('the paper follows the air: a flat ground tinted by the mood, no blurred haze blobs', async () => {
+  const { page, ctx } = await open('index.html');
+  const r = await page.evaluate(() => ({
+    mood: document.body.className,
+    ground: getComputedStyle(document.body).backgroundColor,
+    root: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),
+    blobs: [...document.querySelectorAll('*')].filter((e) => /radial-gradient|linear-gradient/.test(getComputedStyle(e).backgroundImage) || /blur/.test(getComputedStyle(e).filter)).length,
+  }));
+  assert.match(r.mood, /mood-sensitive/);
+  assert.equal(r.blobs, 0);
+  const plain = await page.evaluate((bg) => { const d = document.createElement('div'); d.style.color = bg; document.body.append(d); const c = getComputedStyle(d).color; d.remove(); return c; }, r.root);
+  assert.notEqual(r.ground, plain, 'a sensitive day tints the ground away from the plain paper');
+  await ctx.close();
 });

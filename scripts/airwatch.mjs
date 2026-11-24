@@ -17,7 +17,7 @@ import { loadAlerts } from './lib/alerts.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = path.join(ROOT, 'data');
 
-const HELP = `kl-air-watch — weather and air quality for Kuala Lumpur and Malaysia's states
+const HELP = `kl-air-watch: weather and air quality for Kuala Lumpur and Malaysia's states
 
   airwatch update [--backfill N] [--no-cache | --offline]
                   fetch Open-Meteo (2 requests), write data/latest.json, add finished days to

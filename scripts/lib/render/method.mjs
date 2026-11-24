@@ -23,6 +23,19 @@ export function renderMethod(snapshot) {
   <h1>Method ${ms('Kaedah')}</h1>
   <p class="lede">Where every number comes from, what the colours mean, when an alert fires, and what this site cannot tell you.</p>
 </header>
+<div class="method-grid">
+<nav class="toc" aria-label="On this page">
+  <p class="toc-head">On this page</p>
+  <ol>
+    <li><a href="#m-sources">Data sources</a></li>
+    <li><a href="#thresholds">Colours, advice and alerts</a></li>
+    <li><a href="#m-history">History</a></li>
+    <li><a href="#m-schedule">Schedule and costs</a></li>
+    <li><a href="#m-limits">Limits</a></li>
+  </ol>
+  <p class="toc-note">Official readings: <a href="https://apims.doe.gov.my/">APIMS</a>, Department of Environment.</p>
+</nav>
+<div class="method-body">
 <section class="block prose" aria-labelledby="m-sources">
   <h2 id="m-sources">Data sources</h2>
   <p><b>Weather</b>: the <a href="https://open-meteo.com/en/docs">Open-Meteo Forecast API</a>, which blends national weather models and picks the best ones for each place. Current conditions, ${FORECAST_DAYS} days of daily forecast and hourly values, in Malaysia time.</p>
@@ -38,7 +51,7 @@ export function renderMethod(snapshot) {
   <div class="table-scroll"><table>
     <caption>US AQI categories used on this site</caption>
     <thead><tr><th scope="col">US AQI</th><th scope="col">Category</th><th scope="col" lang="ms">Kategori</th><th scope="col">On this site</th></tr></thead>
-    <tbody>${AQI_BANDS.map((b, i) => html`<tr class="aqi-row aqi-${b.id}"><th scope="row"><span class="swatch" aria-hidden="true"></span>${band(b, i)}</th><td>${b.label}</td><td lang="ms">${b.labelMs}</td><td>${b.max < NOTICE_AQI ? '—' : b.max < ALERT_AQI ? 'Notice banner' : 'Alert banner and a feed entry'}</td></tr>`)}</tbody>
+    <tbody>${AQI_BANDS.map((b, i) => html`<tr class="aqi-row aqi-${b.id}"><th scope="row"><span class="swatch" aria-hidden="true"></span>${band(b, i)}</th><td>${b.label}</td><td lang="ms">${b.labelMs}</td><td>${b.max < NOTICE_AQI ? 'Colour only' : b.max < ALERT_AQI ? 'Notice banner' : 'Alert banner and a feed entry'}</td></tr>`)}</tbody>
   </table></div>
   <p><b>Notice</b>: any of the ${LOCATIONS.length} places at US AQI ${NOTICE_AQI} or more right now. <b>Alert</b>: any place at ${ALERT_AQI} or more, or Kuala Lumpur forecast to reach ${ALERT_AQI} within 24 hours. An alert is written to the <a href="../alerts/index.html">alert log</a> and the feeds once per place, local day and category.</p>
   <h3>The WHO comparison</h3>
@@ -74,5 +87,7 @@ export function renderMethod(snapshot) {
     <li><b>US AQI is not Malaysia's API.</b> The scales and averaging differ. Use APIMS for official decisions such as school closures.</li>
     <li><b>Delays.</b> Scheduled runs can start late. The age of the data is on every page.</li>
   </ul>
-</section>`;
+</section>
+</div>
+</div>`;
 }

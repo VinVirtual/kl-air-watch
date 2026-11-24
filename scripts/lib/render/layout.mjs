@@ -48,7 +48,7 @@ ${canonical ? html`<link rel="canonical" href="${canonical}">` : ''}
 <script src="${b('assets/app.js')}" defer></script>
 </head>
 <body class="mood-${mood}">
-<div class="atmosphere" aria-hidden="true"><div class="haze haze-a"></div><div class="haze haze-b"></div><div class="grain"></div></div>
+<div class="atmosphere" aria-hidden="true"><div class="grain"></div></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <a class="wordmark" href="${b('index.html')}">

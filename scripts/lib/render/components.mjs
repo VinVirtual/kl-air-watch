@@ -134,7 +134,7 @@ export function dayStrip(days, idPrefix) {
       <p class="day-cond">${w.en}</p>
       <p class="day-temps"><span class="hi"><span class="sr">High </span>${fmt(d.tMax)}°</span> <span class="lo"><span class="sr">low </span>${fmt(d.tMin)}°</span></p>
       <p class="day-rain">${fmt(d.pop)}% <span class="sr">chance of rain,</span> ${fmt(d.rain, 1)} mm</p>
-      ${d.aqiMax !== null ? html`<p class="day-aqi">${aqiChip(d.aqiMax, { small: true })}<span class="sr"> peak US AQI</span></p>` : html`<p class="day-aqi day-aqi-none">AQI forecast not available</p>`}
+      ${d.aqiMax !== null ? html`<p class="day-aqi">${aqiChip(d.aqiMax, { small: true })}<span class="sr"> peak US AQI</span></p>` : html`<p class="day-aqi day-aqi-none"><span aria-hidden="true">–</span><span class="sr">No air quality forecast this far ahead</span></p>`}
     </li>`;
   })}
 </ol>`;

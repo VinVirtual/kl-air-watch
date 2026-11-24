@@ -66,18 +66,22 @@ export function renderPlace(snapshot, loc, { base, isHome = false }) {
   const eyebrow = html`${isHome ? 'Today' : 'Now'} · ${formatDate(loc.today)} · ${ms(isHome ? 'Hari ini' : 'Kini')}`;
   return html`${hero(loc, { headingLevel: 1, eyebrow })}
 <section class="block block-hours" aria-labelledby="${loc.id}-hours">
-  <header class="block-head"><p class="block-num" aria-hidden="true">48h</p><h2 id="${loc.id}-hours">The next 48 hours ${ms('48 jam akan datang')}</h2></header>
+  <header class="block-head"><h2 id="${loc.id}-hours">The next 48 hours ${ms('48 jam akan datang')}</h2></header>
   ${hourlyCharts(loc)}
 </section>
 <section class="block block-days" aria-labelledby="${loc.id}-days">
-  <header class="block-head"><p class="block-num" aria-hidden="true">7d</p><h2 id="${loc.id}-days">Next 7 days ${ms('7 hari akan datang')}</h2></header>
+  <header class="block-head"><h2 id="${loc.id}-days">Next 7 days ${ms('7 hari akan datang')}</h2></header>
   ${dayStrip(loc.days, loc.id)}
   <p class="fine">Air quality forecasts reach ${loc.days.filter((d) => d.aqiMax !== null).length} days ahead; the weather forecast reaches seven.</p>
 </section>
 <section class="block block-map" aria-labelledby="map-head">
-  <header class="block-head"><p class="block-num" aria-hidden="true">16</p><h2 id="map-head">${isHome ? 'Across Malaysia' : 'Elsewhere in Malaysia'} ${ms('Seluruh Malaysia')}</h2></header>
-  <p class="lede">Current US AQI in Kuala Lumpur, every state capital, Putrajaya and Labuan. Tiles sit roughly where the places are: Peninsular Malaysia on the left, Sarawak, Labuan and Sabah on the right.</p>
-  ${tileMap(others, base, { headingId: 'map-head' })}
+  <header class="block-head"><h2 id="map-head">${isHome ? 'Across Malaysia' : 'Elsewhere in Malaysia'} ${ms('Seluruh Malaysia')}</h2></header>
+  <div class="map-wrap">
+  <div class="map-key">
+  <p class="lede">US AQI right now in Kuala Lumpur, every state capital, Putrajaya and Labuan. Each tile sits roughly where its place is: the peninsula on the left, Sarawak, Labuan and Sabah across the sea on the right.</p>
   <ul class="map-legend" aria-label="US AQI colours">${['good', 'moderate', 'sensitive', 'unhealthy', 'very-unhealthy', 'hazardous'].map((id) => html`<li class="aqi-${id}"><span class="swatch" aria-hidden="true"></span>${band({ good: 0, moderate: 51, sensitive: 101, unhealthy: 151, 'very-unhealthy': 201, hazardous: 301 }[id]).label}</li>`)}</ul>
+  </div>
+  ${tileMap(others, base, { headingId: 'map-head' })}
+  </div>
 </section>`;
 }

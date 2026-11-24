@@ -146,17 +146,20 @@ export function renderHistory(history, { base }) {
   <p class="lede">One compact summary per place per day, committed to the repository after each day ends. The last 30 days are drawn here; the record grows by a day at a time, so the seasonal view gets better every month.</p>
 </header>
 <section class="block" aria-labelledby="h30">
-  <header class="block-head"><p class="block-num" aria-hidden="true">${last30.length}d</p><h2 id="h30">Kuala Lumpur, last ${last30.length} days ${ms(`${last30.length} hari lepas`)}</h2></header>
+  <header class="block-head"><h2 id="h30">Kuala Lumpur, last ${last30.length} days ${ms(`${last30.length} hari lepas`)}</h2></header>
   ${historyCharts(last30)}
 </section>
 <section class="block" aria-labelledby="hgrid">
-  <header class="block-head"><p class="block-num" aria-hidden="true">16</p><h2 id="hgrid">Across Malaysia ${ms('Seluruh Malaysia')}</h2></header>
+  <header class="block-head"><h2 id="hgrid">Across Malaysia ${ms('Seluruh Malaysia')}</h2></header>
   ${strip}${stripTable}
 </section>
 <section class="block" aria-labelledby="hseason">
-  <header class="block-head"><p class="block-num" aria-hidden="true">${months.length}m</p><h2 id="hseason">By month ${ms('Mengikut bulan')}</h2></header>
+  <header class="block-head"><h2 id="hseason">By month ${ms('Mengikut bulan')}</h2></header>
+  <div class="season">
+  ${seasonal}
   <p class="lede">Haze in Malaysia is usually worst in the dry southwest monsoon, roughly June to September, when smoke from land and forest fires in the region drifts in. Months recorded here show whether this year follows that pattern.</p>
-  ${seasonal}${monthTable}
+  </div>
+  ${monthTable}
   <p class="fine">Data files: <a href="${localHref(`${base}history.json`)}">history.json</a> (all days).</p>
 </section>`;
 }
