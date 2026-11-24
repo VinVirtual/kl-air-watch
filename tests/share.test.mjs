@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { buildSite } from '../scripts/lib/site.mjs';
 import { shareTags, pageUrl, decodeEntities, SHARE_IMAGE } from '../scripts/lib/share.mjs';
-import { ROOT, tmpDir } from './helpers.mjs';
+import { ROOT, tmpDir, snapshot } from './helpers.mjs';
 
 const SITE = 'https://air.example.org/';
 const PROPS = ['og:title', 'og:description', 'og:type', 'og:url', 'og:site_name', 'og:image', 'og:image:type', 'og:image:width', 'og:image:height', 'og:image:alt'];
@@ -23,7 +23,11 @@ function metas(src) {
 test('every built page has share tags, its own og:url and a canonical link', () => {
   const root = tmpDir();
   const out = path.join(root, 'dist');
-  buildSite({ root, dataDir: path.join(ROOT, 'data'), assetsDir: path.join(ROOT, 'assets'), outDir: out, siteUrl: SITE });
+  const dataDir = path.join(root, 'data');
+  fs.mkdirSync(path.join(dataDir, 'history'), { recursive: true });
+  fs.writeFileSync(path.join(dataDir, 'latest.json'), JSON.stringify(snapshot()));
+  fs.writeFileSync(path.join(dataDir, 'alerts.json'), JSON.stringify({ schema: 1, alerts: [] }));
+  buildSite({ root, dataDir, assetsDir: path.join(ROOT, 'assets'), outDir: out, siteUrl: SITE });
   const pages = walk(out).filter((f) => f.endsWith('.html') && path.basename(f) !== '404.html');
   assert.ok(pages.length >= 4, `only ${pages.length} pages built`);
   const urls = new Set();
