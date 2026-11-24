@@ -1,0 +1,15 @@
+node_modules/
+.scratch/
+.cache/
+dist/
+data/latest.json
+.wrangler/
+*.log
+.DS_Store
+.playwright-cli/
+test-results/
+
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example

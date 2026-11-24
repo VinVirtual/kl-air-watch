@@ -1,0 +1,25 @@
+{
+  "name": "kl-air-watch",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A free, self-updating static site with weather and air quality (haze) for Kuala Lumpur and every Malaysian state, from Open-Meteo.",
+  "license": "MIT",
+  "author": "Lashvin Manimaran",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "update": "node scripts/airwatch.mjs update",
+    "site": "node scripts/airwatch.mjs site",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "node --test tests/e2e/*.test.mjs",
+    "capture": "node scripts/capture.mjs",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
+  },
+  "devDependencies": {
+    "playwright-core": "1.65.1",
+    "wrangler": "^4.167.0"
+  }
+}

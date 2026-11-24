@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KL Air &amp; Weather Watch: haze alerts</title>
+    <link>https://kl-air-watch.pages.dev/</link>
+    <description>One entry each time a place in Malaysia reaches US AQI 151 (unhealthy) or more, or Kuala Lumpur is forecast to. Model estimates from CAMS via Open-Meteo.</description>
+    <language>en</language>
+    <copyright>Weather data by Open-Meteo.com (CC BY 4.0). Contains modified Copernicus Atmosphere Monitoring Service information.</copyright>
+    <ttl>180</ttl>
+    <atom:link href="https://kl-air-watch.pages.dev/alerts.xml" rel="self" type="application/rss+xml"/>
+
+  </channel>
+</rss>

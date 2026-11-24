@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src &#39;none&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; img-src &#39;self&#39; data:; font-src &#39;self&#39;; connect-src &#39;none&#39;; base-uri &#39;none&#39;; form-action &#39;none&#39;; manifest-src &#39;none&#39;; object-src &#39;none&#39;">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="color-scheme" content="light dark">
+<title>States · KL Air &amp; Weather Watch</title>
+<meta name="description" content="Air quality and weather now in Kuala Lumpur and every Malaysian state capital.">
+
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/fraunces-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="alternate" type="application/rss+xml" title="KL Air &amp; Weather Watch: haze alerts (RSS)" href="../alerts.xml">
+<link rel="alternate" type="application/feed+json" title="KL Air &amp; Weather Watch: haze alerts (JSON Feed)" href="../alerts.json">
+<script src="../assets/theme.js"></script>
+<script src="../assets/app.js" defer></script>
+</head>
+<body class="mood-sensitive">
+<div class="atmosphere" aria-hidden="true"><div class="haze haze-a"></div><div class="haze haze-b"></div><div class="grain"></div></div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <a class="wordmark" href="../index.html">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="16" r="6.5" class="mark-sun"/><path d="M3 21 Q9.5 17 16 21 T29 21" class="mark-haze"/><path d="M3 26 Q9.5 22 16 26 T29 26" class="mark-haze mark-haze-2"/></svg>
+    <span class="wordmark-text"><b>KL Air</b> &amp; Weather Watch<span class="ms wordmark-ms" lang="ms">Pemantau Udara &amp; Cuaca KL</span></span>
+  </a>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="../index.html">Now<span class="ms nav-ms" lang="ms">Kini</span></a></li><li><a href="../states/index.html" aria-current="page">States<span class="ms nav-ms" lang="ms">Negeri</span></a></li><li><a href="../history/index.html">History<span class="ms nav-ms" lang="ms">Sejarah</span></a></li><li><a href="../alerts/index.html">Alerts<span class="ms nav-ms" lang="ms">Amaran</span></a></li><li><a href="../method/index.html">Method<span class="ms nav-ms" lang="ms">Kaedah</span></a></li>
+    </ul>
+  </nav>
+  <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch colour theme" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 7 A5 5 0 0 0 12 17 Z" class="half"/></svg>
+  </button>
+</header>
+<aside class="haze-banner level-notice" aria-label="Haze notice">
+  <p class="hb-kicker">Air quality notice <span class="ms" lang="ms">Notis kualiti udara</span></p>
+  <p class="hb-text">US AQI above 100 (unhealthy for sensitive groups) in 4 of 16 places: Putrajaya 115, Kuala Lumpur 112, Shah Alam 112, Melaka 101. <a href="../method/index.html#thresholds">What this means</a></p>
+</aside>
+<p class="stale-note" data-stale role="status" hidden></p>
+<main id="main" tabindex="-1">
+<header class="page-head">
+  <p class="eyebrow">All 16 places <span class="ms" lang="ms">Semua 16 lokasi</span></p>
+  <h1>States and territories <span class="ms" lang="ms">Negeri dan wilayah</span></h1>
+  <p class="lede">Kuala Lumpur, the 13 state capitals, Putrajaya and Labuan, worst air first. Each name opens that place's 48-hour and 7-day forecast.</p>
+</header>
+<section class="block" aria-labelledby="tiles-h">
+  <h2 id="tiles-h" class="sr">Tile map</h2>
+  <ol class="tiles" aria-labelledby="tiles-h">
+  <li class="tile c2 r4 aqi-sensitive">
+      <a href="../states/kuala-lumpur/index.html">
+        <span class="tile-aqi">112</span>
+        <span class="tile-name">Kuala Lumpur</span>
+        <span class="tile-meta">W.P. Kuala Lumpur · 27°C · Unhealthy for sensitive groups</span>
+      </a>
+    </li><li class="tile c2 r5 aqi-sensitive">
+      <a href="../states/putrajaya/index.html">
+        <span class="tile-aqi">115</span>
+        <span class="tile-name">Putrajaya</span>
+        <span class="tile-meta">W.P. Putrajaya · 25°C · Unhealthy for sensitive groups</span>
+      </a>
+    </li><li class="tile c1 r4 aqi-sensitive">
+      <a href="../states/shah-alam/index.html">
+        <span class="tile-aqi">112</span>
+        <span class="tile-name">Shah Alam</span>
+        <span class="tile-meta">Selangor · 27°C · Unhealthy for sensitive groups</span>
+      </a>
+    </li><li class="tile c3 r5 aqi-moderate">
+      <a href="../states/seremban/index.html">
+        <span class="tile-aqi">61</span>
+        <span class="tile-name">Seremban</span>
+        <span class="tile-meta">Negeri Sembilan · 25°C · Moderate</span>
+      </a>
+    </li><li class="tile c3 r6 aqi-sensitive">
+      <a href="../states/melaka/index.html">
+        <span class="tile-aqi">101</span>
+        <span class="tile-name">Melaka</span>
+        <span class="tile-meta">26°C · Unhealthy for sensitive groups</span>
+      </a>
+    </li><li class="tile c4 r7 aqi-moderate">
+      <a href="../states/johor-bahru/index.html">
+        <span class="tile-aqi">51</span>
+        <span class="tile-name">Johor Bahru</span>
+        <span class="tile-meta">Johor · 25°C · Moderate</span>
+      </a>
+    </li><li class="tile c3 r4 aqi-good">
+      <a href="../states/kuantan/index.html">
+        <span class="tile-aqi">23</span>
+        <span class="tile-name">Kuantan</span>
+        <span class="tile-meta">Pahang · 26°C · Good</span>
+      </a>
+    </li><li class="tile c3 r2 aqi-good">
+      <a href="../states/kuala-terengganu/index.html">
+        <span class="tile-aqi">26</span>
+        <span class="tile-name">Kuala Terengganu</span>
+        <span class="tile-meta">Terengganu · 26°C · Good</span>
+      </a>
+    </li><li class="tile c2 r1 aqi-good">
+      <a href="../states/kota-bharu/index.html">
+        <span class="tile-aqi">32</span>
+        <span class="tile-name">Kota Bharu</span>
+        <span class="tile-meta">Kelantan · 26°C · Good</span>
+      </a>
+    </li><li class="tile c1 r3 aqi-moderate">
+      <a href="../states/ipoh/index.html">
+        <span class="tile-aqi">52</span>
+        <span class="tile-name">Ipoh</span>
+        <span class="tile-meta">Perak · 26°C · Moderate</span>
+      </a>
+    </li><li class="tile c0 r2 aqi-moderate">
+      <a href="../states/george-town/index.html">
+        <span class="tile-aqi">54</span>
+        <span class="tile-name">George Town</span>
+        <span class="tile-meta">Penang · 27°C · Moderate</span>
+      </a>
+    </li><li class="tile c1 r1 aqi-good">
+      <a href="../states/alor-setar/index.html">
+        <span class="tile-aqi">38</span>
+        <span class="tile-name">Alor Setar</span>
+        <span class="tile-meta">Kedah · 27°C · Good</span>
+      </a>
+    </li><li class="tile c1 r0 aqi-good">
+      <a href="../states/kangar/index.html">
+        <span class="tile-aqi">42</span>
+        <span class="tile-name">Kangar</span>
+        <span class="tile-meta">Perlis · 26°C · Good</span>
+      </a>
+    </li><li class="tile c6 r6 aqi-good">
+      <a href="../states/kuching/index.html">
+        <span class="tile-aqi">45</span>
+        <span class="tile-name">Kuching</span>
+        <span class="tile-meta">Sarawak · 26°C · Good</span>
+      </a>
+    </li><li class="tile c7 r2 aqi-good">
+      <a href="../states/labuan/index.html">
+        <span class="tile-aqi">44</span>
+        <span class="tile-name">Labuan</span>
+        <span class="tile-meta">W.P. Labuan · 26°C · Good</span>
+      </a>
+    </li><li class="tile c8 r1 aqi-moderate">
+      <a href="../states/kota-kinabalu/index.html">
+        <span class="tile-aqi">51</span>
+        <span class="tile-name">Kota Kinabalu</span>
+        <span class="tile-meta">Sabah · 26°C · Moderate</span>
+      </a>
+    </li>
+</ol>
+</section>
+<section class="block" aria-labelledby="table-h">
+  <h2 id="table-h">Now, by air quality <span class="ms" lang="ms">Kini, mengikut kualiti udara</span></h2>
+  <div class="table-scroll"><table class="states-table">
+    <caption>Current conditions, model hour Tue 24 Nov, 18:00 Malaysia time</caption>
+    <thead><tr><th scope="col">Place</th><th scope="col">State</th><th scope="col">US AQI</th><th scope="col">PM2.5 µg/m³</th><th scope="col">Temp °C</th><th scope="col">Feels °C</th><th scope="col">Rain today %</th><th scope="col">Weather</th></tr></thead>
+    <tbody><tr>
+      <th scope="row"><a href="../states/putrajaya/index.html">Putrajaya</a></th>
+      <td>W.P. Putrajaya</td><td><span class="chip aqi-sensitive chip-s"><b>115</b> <span class="chip-label">Unhealthy for sensitive groups</span></span></td><td>34.0</td><td>25.3</td><td>30.9</td><td>100</td><td>Rain showers</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/kuala-lumpur/index.html">Kuala Lumpur</a></th>
+      <td>W.P. Kuala Lumpur</td><td><span class="chip aqi-sensitive chip-s"><b>112</b> <span class="chip-label">Unhealthy for sensitive groups</span></span></td><td>38.8</td><td>26.7</td><td>33.2</td><td>100</td><td>Drizzle</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/shah-alam/index.html">Shah Alam</a></th>
+      <td>Selangor</td><td><span class="chip aqi-sensitive chip-s"><b>112</b> <span class="chip-label">Unhealthy for sensitive groups</span></span></td><td>38.8</td><td>26.7</td><td>33.6</td><td>99</td><td>Drizzle</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/melaka/index.html">Melaka</a></th>
+      <td>Melaka</td><td><span class="chip aqi-sensitive chip-s"><b>101</b> <span class="chip-label">Unhealthy for sensitive groups</span></span></td><td>14.2</td><td>26.2</td><td>31.9</td><td>100</td><td>Rain showers</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/seremban/index.html">Seremban</a></th>
+      <td>Negeri Sembilan</td><td><span class="chip aqi-moderate chip-s"><b>61</b> <span class="chip-label">Moderate</span></span></td><td>15.1</td><td>25.4</td><td>30.9</td><td>100</td><td>Drizzle</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/george-town/index.html">George Town</a></th>
+      <td>Penang</td><td><span class="chip aqi-moderate chip-s"><b>54</b> <span class="chip-label">Moderate</span></span></td><td>7.5</td><td>26.5</td><td>32.8</td><td>100</td><td>Drizzle</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/ipoh/index.html">Ipoh</a></th>
+      <td>Perak</td><td><span class="chip aqi-moderate chip-s"><b>52</b> <span class="chip-label">Moderate</span></span></td><td>9.1</td><td>26.3</td><td>32.7</td><td>100</td><td>Overcast</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/johor-bahru/index.html">Johor Bahru</a></th>
+      <td>Johor</td><td><span class="chip aqi-moderate chip-s"><b>51</b> <span class="chip-label">Moderate</span></span></td><td>15.1</td><td>25.3</td><td>30.7</td><td>100</td><td>Drizzle</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/kota-kinabalu/index.html">Kota Kinabalu</a></th>
+      <td>Sabah</td><td><span class="chip aqi-moderate chip-s"><b>51</b> <span class="chip-label">Moderate</span></span></td><td>5.2</td><td>26.4</td><td>33.0</td><td>100</td><td>Overcast</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/kuching/index.html">Kuching</a></th>
+      <td>Sarawak</td><td><span class="chip aqi-good chip-s"><b>45</b> <span class="chip-label">Good</span></span></td><td>8.5</td><td>25.5</td><td>31.5</td><td>96</td><td>Overcast</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/labuan/index.html">Labuan</a></th>
+      <td>W.P. Labuan</td><td><span class="chip aqi-good chip-s"><b>44</b> <span class="chip-label">Good</span></span></td><td>5.4</td><td>25.5</td><td>31.6</td><td>98</td><td>Rain showers</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/kangar/index.html">Kangar</a></th>
+      <td>Perlis</td><td><span class="chip aqi-good chip-s"><b>42</b> <span class="chip-label">Good</span></span></td><td>7.5</td><td>26.2</td><td>30.6</td><td>98</td><td>Overcast</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/alor-setar/index.html">Alor Setar</a></th>
+      <td>Kedah</td><td><span class="chip aqi-good chip-s"><b>38</b> <span class="chip-label">Good</span></span></td><td>5.8</td><td>26.7</td><td>31.4</td><td>100</td><td>Overcast</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/kota-bharu/index.html">Kota Bharu</a></th>
+      <td>Kelantan</td><td><span class="chip aqi-good chip-s"><b>32</b> <span class="chip-label">Good</span></span></td><td>5.4</td><td>26.0</td><td>31.0</td><td>100</td><td>Partly cloudy</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/kuala-terengganu/index.html">Kuala Terengganu</a></th>
+      <td>Terengganu</td><td><span class="chip aqi-good chip-s"><b>26</b> <span class="chip-label">Good</span></span></td><td>4.4</td><td>25.5</td><td>31.4</td><td>100</td><td>Drizzle</td>
+    </tr><tr>
+      <th scope="row"><a href="../states/kuantan/index.html">Kuantan</a></th>
+      <td>Pahang</td><td><span class="chip aqi-good chip-s"><b>23</b> <span class="chip-label">Good</span></span></td><td>1.4</td><td>25.7</td><td>31.0</td><td>100</td><td>Drizzle</td>
+    </tr></tbody>
+  </table></div>
+</section>
+</main>
+<footer class="colophon">
+  <p class="attribution"><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Air quality: Copernicus Atmosphere Monitoring Service (CAMS) global forecasts, via Open-Meteo; contains modified Copernicus Atmosphere Monitoring Service information. Values are rounded and summarised here.</p>
+  <p>Model estimates for a grid cell, not readings from a monitoring station. For Malaysia's official Air Pollutant Index see the Department of Environment's <a href="https://apims.doe.gov.my/">APIMS</a>. Not medical advice. <a href="../method/index.html">How this works</a>.</p>
+  <p class="freshness" data-generated="2026-11-24T10:50:31.981Z">Built 2026-11-24 10:50 UTC from the Open-Meteo update for 2026-11-24 18:45 Malaysia time.<span class="age" data-age></span></p>
+  <p>Code MIT. Fonts: Fraunces and IBM Plex Mono, SIL Open Font License 1.1 (<a href="../assets/fonts/LICENSE-Fraunces.txt">text</a>, <a href="../assets/fonts/LICENSE-IBM-Plex-Mono.txt">text</a>). Haze alerts: <a href="../alerts.xml">RSS</a> · <a href="../alerts.json">JSON Feed</a> · data: <a href="../latest.json">latest.json</a>.</p>
+</footer>
+</body>
+</html>
