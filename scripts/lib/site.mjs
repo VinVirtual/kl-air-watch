@@ -12,6 +12,7 @@ import { renderStates, renderHistory, renderAlerts } from './render/pages.mjs';
 import { renderMethod } from './render/method.mjs';
 import { rss, jsonFeed } from './feeds.mjs';
 import { HOME_ID, SITE_TAGLINE } from './config.mjs';
+import { addShareTags } from './share.mjs';
 
 export const SITE_BUDGET_BYTES = 6 * 1024 * 1024;
 
@@ -73,6 +74,7 @@ export function buildSite({ root, dataDir, assetsDir, outDir, siteUrl, snapshotF
   write('history.json', `${JSON.stringify({ attribution, days: history })}\n`);
   write('_headers', headersFile());
   write('robots.txt', 'User-agent: *\nAllow: /\n');
+  addShareTags(outDir, { siteUrl, root });
   const problems = checkSite(outDir);
   if (problems.length) throw new Error(`site check failed:\n  ${problems.join('\n  ')}`);
   return { pages: htmlFiles(outDir).length, bytes: dirBytes(outDir), banner: bn.level, historyDays: history.length, alerts: alerts.length };
