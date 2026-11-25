@@ -59,7 +59,7 @@ The site URL is used for canonical links, feeds and link previews. It defaults t
 4. In `deploy-pages.yml`, uncomment the two `schedule` lines (every 3 hours) and push.
 5. Actions, deploy-pages, **Run workflow**. Set `backfill` to `30` the first time to start the history.
 
-The history committed here covers 25 October to 23 November 2026. Your fork carries on from the day it first runs; a backfill fills up to 92 days before that.
+The history committed here covers 25 October to 24 November 2026. Your fork carries on from the day it first runs; a backfill fills up to 92 days before that.
 
 The site URL comes from GitHub Pages. For a custom domain, set the repository variable `AIRWATCH_SITE_URL` (Settings, Secrets and variables, Actions, Variables), for example `https://air.example.org/`. If you change the schedule, change `RUNS_PER_DAY` in `scripts/lib/config.mjs` too: the update refuses a schedule that could pass Open-Meteo's daily limit, and the Method page shows the numbers.
 
