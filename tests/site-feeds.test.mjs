@@ -210,6 +210,6 @@ test('the site writes no em dashes: built pages, feeds and data, and the templat
   const own = (f) => /\.(html|xml|json|css|js|mjs|txt|svg)$/.test(f) && !/LICENSE-/.test(path.basename(f));
   const files = [...walk(p.outDir), ...walk(path.join(ROOT, 'scripts')), ...walk(path.join(ROOT, 'assets'))].filter(own);
   assert.ok(files.length > 30, `scanned ${files.length} files`);
-  const hits = files.filter((f) => fs.readFileSync(f, 'utf8').includes('—')).map((f) => path.relative(ROOT, f));
+  const hits = files.filter((f) => fs.readFileSync(f, 'utf8').includes('\u2014')).map((f) => path.relative(ROOT, f));
   assert.deepEqual(hits, []);
 });
