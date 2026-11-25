@@ -18,8 +18,8 @@ chrome=""
 for c in "${AIRWATCH_CHROME:-}" /usr/bin/google-chrome /usr/bin/google-chrome-stable /usr/bin/chromium /usr/bin/chromium-browser; do [ -n "$c" ] && [ -x "$c" ] && chrome="$c" && break; done
 if [ -n "$chrome" ]; then pass "Chrome: $chrome"; else note "no Chrome found" "install Google Chrome, or set AIRWATCH_CHROME to a Chromium binary"; fi
 
-echo "deploying by hand (optional; the workflow deploys on its own):"
-if command -v npx >/dev/null; then pass "npx (for: npx wrangler pages deploy dist --project-name kl-air-watch)"; else note "no npx" "install npm to deploy by hand"; fi
+echo "deploying by hand (optional; see README, Deploy your own):"
+if command -v npx >/dev/null; then pass "npx (for: npx wrangler pages deploy dist --project-name <your-project>)"; else note "no npx" "install npm to deploy by hand"; fi
 
 [ $ok -eq 0 ] && echo "ready." || echo "fix the MISSING lines above."
 exit $ok

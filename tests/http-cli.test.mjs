@@ -132,36 +132,39 @@ test('the CLI parses commands, flags and backfill bounds', () => {
 const workflow = (name) => fs.readFileSync(path.join(ROOT, '.github', 'workflows', name), 'utf8');
 
 test('every action in the workflows is pinned to a full commit SHA', () => {
-  for (const name of ['update.yml', 'test.yml']) {
+  for (const name of ['deploy-pages.yml', 'test.yml']) {
     const uses = [...workflow(name).matchAll(/uses:\s*(\S+)/g)].map((m) => m[1]);
     assert.ok(uses.length >= 2, name);
     for (const u of uses) assert.match(u, /@[0-9a-f]{40}$/, `${name}: ${u}`);
   }
 });
 
-test('the update workflow runs every 3 hours in one job, with write rights only to contents', () => {
-  const w = workflow('update.yml');
-  assert.match(w, /cron: '23 \*\/3 \* \* \*'/);
+test('the Pages workflow is off in this repository: manual only, schedule commented for forks', () => {
+  const w = workflow('deploy-pages.yml');
+  assert.match(w, /^ {2}workflow_dispatch:$/m);
+  assert.doesNotMatch(w, /^ {2}schedule:/m, 'the schedule must stay commented out here');
+  assert.match(w, /^ {2}# schedule:\n {2}# {3}- cron: '23 \*\/3 \* \* \*'/m);
+  assert.doesNotMatch(w, /cloudflare|wrangler|CLOUDFLARE_/i);
+});
+
+test('the Pages workflow gives each job only the rights it needs', () => {
+  const w = workflow('deploy-pages.yml');
   assert.match(w, /^permissions: \{\}$/m);
-  assert.equal((w.match(/^ {2}[a-z-]+:\n {4}runs-on:/gm) ?? []).length, 1, 'one job, so one billed minute block per run');
-  assert.match(w, /contents: write/);
-  assert.doesNotMatch(w, /pull-requests|id-token|actions: write/);
-  assert.match(w, /persist-credentials: false/);
-  assert.match(w, /timeout-minutes: 8/);
+  const [build, deploy] = w.split(/^ {2}deploy:$/m);
+  assert.match(build, /contents: write/);
+  assert.doesNotMatch(build, /pages: write|id-token/);
+  assert.match(build, /persist-credentials: false/);
+  assert.match(build, /timeout-minutes: 8/);
+  assert.match(deploy, /pages: write/);
+  assert.match(deploy, /id-token: write/);
+  assert.doesNotMatch(deploy, /contents: write/);
+  assert.match(deploy, /actions\/deploy-pages@/);
 });
 
-test('the deploy is skipped with a warning, not failed, when the Cloudflare secrets are missing', () => {
-  const w = workflow('update.yml');
-  assert.match(w, /HAS_TOKEN: \$\{\{ secrets.CLOUDFLARE_API_TOKEN != '' \}\}/);
-  assert.match(w, /::warning title=Cloudflare deploy skipped::/);
-  assert.match(w, /if: \$\{\{ !cancelled\(\) && steps.cf.outputs.ready == 'true' \}\}/);
-  assert.match(w, /--project-name=\$\{\{ env.PAGES_PROJECT \}\}/);
-  assert.match(w, /PAGES_PROJECT: kl-air-watch/);
-});
-
-test('the workflow commits as the noreply identity and only the data files', () => {
-  const w = workflow('update.yml');
-  assert.match(w, /190336345\+VinVirtual@users.noreply.github.com/);
+test('the workflow commits as the Actions bot, never as a person, and only the data files', () => {
+  const w = workflow('deploy-pages.yml');
+  assert.match(w, /41898282\+github-actions\[bot\]@users\.noreply\.github\.com/);
+  assert.doesNotMatch(w, /VinVirtual/);
   assert.match(w, /git add data\/history\n/);
   assert.doesNotMatch(w, /git add (-A|\.)/);
   assert.doesNotMatch(w, /Co-Authored-By/i);

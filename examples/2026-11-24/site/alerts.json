@@ -2,8 +2,8 @@
   "version": "https://jsonfeed.org/version/1.1",
   "title": "KL Air & Weather Watch: haze alerts",
   "description": "One entry each time a place in Malaysia reaches US AQI 151 (unhealthy) or more, or Kuala Lumpur is forecast to. Model estimates from CAMS via Open-Meteo.",
-  "home_page_url": "https://kl-air-watch.pages.dev/",
-  "feed_url": "https://kl-air-watch.pages.dev/alerts.json",
+  "home_page_url": "http://localhost:8000/",
+  "feed_url": "http://localhost:8000/alerts.json",
   "language": "en",
   "items": []
 }

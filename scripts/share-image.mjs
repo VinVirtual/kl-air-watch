@@ -48,7 +48,7 @@ function cardHtml() {
   <div class="top">
     <span class="wordmark"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="6.5" class="mark-sun"/><path d="M3 21 Q9.5 17 16 21 T29 21" class="mark-haze"/><path d="M3 26 Q9.5 22 16 26 T29 26" class="mark-haze mark-haze-2"/></svg>
     <span class="wordmark-text"><b>KL Air</b> &amp; Weather Watch<span class="ms wordmark-ms" lang="ms">Pemantau Udara &amp; Cuaca KL</span></span></span>
-    <span class="site">air.lashvin.com</span>
+    <span class="site">Open data · Open-Meteo</span>
   </div>
   <div class="copy">
     <p class="eyebrow">Weather and haze, now <span class="ms" lang="ms">Cuaca dan jerebu, kini</span></p>

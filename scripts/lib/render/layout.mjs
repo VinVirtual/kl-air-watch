@@ -1,7 +1,7 @@
 // The page shell: strict CSP, no inline script or style, relative links so the site works
 // under any base path. Attribution for the data is on every page, as CC BY 4.0 asks.
 import { html, localHref } from '../html.mjs';
-import { SITE_TITLE, SITE_TITLE_MS } from '../config.mjs';
+import { SITE_TITLE, SITE_TITLE_MS, REPO_URL } from '../config.mjs';
 import { hazeBanner } from './components.mjs';
 
 export const CSP = [
@@ -73,7 +73,7 @@ ${body}
   <p class="attribution"><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Air quality: Copernicus Atmosphere Monitoring Service (CAMS) global forecasts, via Open-Meteo; contains modified Copernicus Atmosphere Monitoring Service information. Values are rounded and summarised here.</p>
   <p>Model estimates for a grid cell, not readings from a monitoring station. For Malaysia's official Air Pollutant Index see the Department of Environment's <a href="https://apims.doe.gov.my/">APIMS</a>. Not medical advice. <a href="${b('method/index.html')}">How this works</a>.</p>
   ${snapshot ? html`<p class="freshness" data-generated="${snapshot.generatedAt}">Built ${snapshot.generatedAt.slice(0, 16).replace('T', ' ')} UTC from the Open-Meteo update for ${snapshot.locations[0].now.t.replace('T', ' ')} Malaysia time.<span class="age" data-age></span></p>` : ''}
-  <p>Code MIT. Fonts: Fraunces and IBM Plex Mono, SIL Open Font License 1.1 (<a href="${b('assets/fonts/LICENSE-Fraunces.txt')}">text</a>, <a href="${b('assets/fonts/LICENSE-IBM-Plex-Mono.txt')}">text</a>). Haze alerts: <a href="${b('alerts.xml')}">RSS</a> · <a href="${b('alerts.json')}">JSON Feed</a> · data: <a href="${b('latest.json')}">latest.json</a>.</p>
+  <p><a href="${REPO_URL}">Source code</a>, MIT licence. Fonts: Fraunces and IBM Plex Mono, SIL Open Font License 1.1 (<a href="${b('assets/fonts/LICENSE-Fraunces.txt')}">text</a>, <a href="${b('assets/fonts/LICENSE-IBM-Plex-Mono.txt')}">text</a>). Haze alerts: <a href="${b('alerts.xml')}">RSS</a> · <a href="${b('alerts.json')}">JSON Feed</a> · data: <a href="${b('latest.json')}">latest.json</a>.</p>
 </footer>
 </body>
 </html>

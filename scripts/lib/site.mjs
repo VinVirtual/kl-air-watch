@@ -23,7 +23,9 @@ export function checkSiteUrl(u) {
   } catch {
     throw new Error(`site URL is not a URL: ${String(u).slice(0, 80)}`);
   }
-  if (p.protocol !== 'https:' || !u.endsWith('/') || p.search || p.hash || p.username || p.password) throw new Error('site URL must be https and end with "/"');
+  // https everywhere, except plain http on this machine for local builds.
+  const local = p.protocol === 'http:' && (p.hostname === 'localhost' || p.hostname === '127.0.0.1');
+  if ((p.protocol !== 'https:' && !local) || !u.endsWith('/') || p.search || p.hash || p.username || p.password) throw new Error('site URL must be https (or http://localhost) and end with "/"');
   return u;
 }
 
@@ -80,7 +82,7 @@ export function buildSite({ root, dataDir, assetsDir, outDir, siteUrl, snapshotF
   return { pages: htmlFiles(outDir).length, bytes: dirBytes(outDir), banner: bn.level, historyDays: history.length, alerts: alerts.length };
 }
 
-// Cloudflare Pages reads _headers (it is not served). Sends as real headers what a <meta> CSP
+// Cloudflare Pages and Netlify read _headers (it is not served; GitHub Pages ignores it). Sends as real headers what a <meta> CSP
 // cannot: frame-ancestors, X-Frame-Options and nosniff, plus caching and the feed media types.
 export function headersFile() {
   const lines = [
@@ -142,7 +144,7 @@ export function checkSite(outDir) {
     const ids = new Set([...src.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
     for (const m of src.matchAll(/\s(?:href|src)="([^"]*)"/g)) {
       const link = m[1].replace(/&amp;/g, '&');
-      if (/^https:\/\//.test(link)) continue;
+      if (/^https:\/\//.test(link) || /^http:\/\/(localhost|127\.0\.0\.1)[:/]/.test(link)) continue; // local builds link to themselves
       if (/^[a-z]+:/i.test(link) || link.startsWith('//')) {
         problems.push(`${rel}: non-https link ${link.slice(0, 60)}`);
         continue;

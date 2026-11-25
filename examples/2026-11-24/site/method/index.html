@@ -8,6 +8,22 @@
 <meta name="color-scheme" content="light dark">
 <title>Method · KL Air &amp; Weather Watch</title>
 <meta name="description" content="Data sources, thresholds, schedule and limits.">
+<link rel="canonical" href="http://localhost:8000/method/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KL Air &amp; Weather Watch">
+<meta property="og:title" content="Method · KL Air &amp; Weather Watch">
+<meta property="og:description" content="Data sources, thresholds, schedule and limits.">
+<meta property="og:url" content="http://localhost:8000/method/">
+<meta property="og:image" content="http://localhost:8000/assets/share.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="KL Air &amp; Weather Watch: weather and haze for Kuala Lumpur and every Malaysian state, with a US AQI gauge.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Method · KL Air &amp; Weather Watch">
+<meta name="twitter:description" content="Data sources, thresholds, schedule and limits.">
+<meta name="twitter:image" content="http://localhost:8000/assets/share.png">
+<meta name="twitter:image:alt" content="KL Air &amp; Weather Watch: weather and haze for Kuala Lumpur and every Malaysian state, with a US AQI gauge.">
 
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/fraunces-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -18,7 +34,7 @@
 <script src="../assets/app.js" defer></script>
 </head>
 <body class="mood-sensitive">
-<div class="atmosphere" aria-hidden="true"><div class="haze haze-a"></div><div class="haze haze-b"></div><div class="grain"></div></div>
+<div class="atmosphere" aria-hidden="true"><div class="grain"></div></div>
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <a class="wordmark" href="../index.html">
@@ -45,6 +61,19 @@
   <h1>Method <span class="ms" lang="ms">Kaedah</span></h1>
   <p class="lede">Where every number comes from, what the colours mean, when an alert fires, and what this site cannot tell you.</p>
 </header>
+<div class="method-grid">
+<nav class="toc" aria-label="On this page">
+  <p class="toc-head">On this page</p>
+  <ol>
+    <li><a href="#m-sources">Data sources</a></li>
+    <li><a href="#thresholds">Colours, advice and alerts</a></li>
+    <li><a href="#m-history">History</a></li>
+    <li><a href="#m-schedule">Schedule and costs</a></li>
+    <li><a href="#m-limits">Limits</a></li>
+  </ol>
+  <p class="toc-note">Official readings: <a href="https://apims.doe.gov.my/">APIMS</a>, Department of Environment.</p>
+</nav>
+<div class="method-body">
 <section class="block prose" aria-labelledby="m-sources">
   <h2 id="m-sources">Data sources</h2>
   <p><b>Weather</b>: the <a href="https://open-meteo.com/en/docs">Open-Meteo Forecast API</a>, which blends national weather models and picks the best ones for each place. Current conditions, 7 days of daily forecast and hourly values, in Malaysia time.</p>
@@ -60,7 +89,7 @@
   <div class="table-scroll"><table>
     <caption>US AQI categories used on this site</caption>
     <thead><tr><th scope="col">US AQI</th><th scope="col">Category</th><th scope="col" lang="ms">Kategori</th><th scope="col">On this site</th></tr></thead>
-    <tbody><tr class="aqi-row aqi-good"><th scope="row"><span class="swatch" aria-hidden="true"></span>0–50</th><td>Good</td><td lang="ms">Baik</td><td>—</td></tr><tr class="aqi-row aqi-moderate"><th scope="row"><span class="swatch" aria-hidden="true"></span>51–100</th><td>Moderate</td><td lang="ms">Sederhana</td><td>—</td></tr><tr class="aqi-row aqi-sensitive"><th scope="row"><span class="swatch" aria-hidden="true"></span>101–150</th><td>Unhealthy for sensitive groups</td><td lang="ms">Tidak sihat bagi kumpulan sensitif</td><td>Notice banner</td></tr><tr class="aqi-row aqi-unhealthy"><th scope="row"><span class="swatch" aria-hidden="true"></span>151–200</th><td>Unhealthy</td><td lang="ms">Tidak sihat</td><td>Alert banner and a feed entry</td></tr><tr class="aqi-row aqi-very-unhealthy"><th scope="row"><span class="swatch" aria-hidden="true"></span>201–300</th><td>Very unhealthy</td><td lang="ms">Sangat tidak sihat</td><td>Alert banner and a feed entry</td></tr><tr class="aqi-row aqi-hazardous"><th scope="row"><span class="swatch" aria-hidden="true"></span>301–500</th><td>Hazardous</td><td lang="ms">Berbahaya</td><td>Alert banner and a feed entry</td></tr></tbody>
+    <tbody><tr class="aqi-row aqi-good"><th scope="row"><span class="swatch" aria-hidden="true"></span>0–50</th><td>Good</td><td lang="ms">Baik</td><td>Colour only</td></tr><tr class="aqi-row aqi-moderate"><th scope="row"><span class="swatch" aria-hidden="true"></span>51–100</th><td>Moderate</td><td lang="ms">Sederhana</td><td>Colour only</td></tr><tr class="aqi-row aqi-sensitive"><th scope="row"><span class="swatch" aria-hidden="true"></span>101–150</th><td>Unhealthy for sensitive groups</td><td lang="ms">Tidak sihat bagi kumpulan sensitif</td><td>Notice banner</td></tr><tr class="aqi-row aqi-unhealthy"><th scope="row"><span class="swatch" aria-hidden="true"></span>151–200</th><td>Unhealthy</td><td lang="ms">Tidak sihat</td><td>Alert banner and a feed entry</td></tr><tr class="aqi-row aqi-very-unhealthy"><th scope="row"><span class="swatch" aria-hidden="true"></span>201–300</th><td>Very unhealthy</td><td lang="ms">Sangat tidak sihat</td><td>Alert banner and a feed entry</td></tr><tr class="aqi-row aqi-hazardous"><th scope="row"><span class="swatch" aria-hidden="true"></span>301–500</th><td>Hazardous</td><td lang="ms">Berbahaya</td><td>Alert banner and a feed entry</td></tr></tbody>
   </table></div>
   <p><b>Notice</b>: any of the 16 places at US AQI 101 or more right now. <b>Alert</b>: any place at 151 or more, or Kuala Lumpur forecast to reach 151 within 24 hours. An alert is written to the <a href="../alerts/index.html">alert log</a> and the feeds once per place, local day and category.</p>
   <h3>The WHO comparison</h3>
@@ -80,9 +109,9 @@
 </section>
 <section class="block prose" aria-labelledby="m-schedule">
   <h2 id="m-schedule">Schedule and costs</h2>
-  <p>A GitHub Actions workflow runs every 3 hours: it fetches, records new history days and alerts, builds this site and uploads it to Cloudflare Pages. GitHub can start scheduled runs late, or skip them when it is busy, so every page shows the data's own model hour and when it was built, and says so when the numbers are more than 7 hours old.</p>
+  <p>A GitHub Actions workflow runs every 3 hours: it fetches, records new history days and alerts, builds this site and publishes it as static files. GitHub can start scheduled runs late, or skip them when it is busy, so every page shows the data's own model hour and when it was built, and says so when the numbers are more than 7 hours old.</p>
   <ul>
-    <li><b>GitHub minutes</b> (private repositories get 2,000 free minutes a month; each job is billed in whole minutes, rounded up): 8 runs a day × 30.4 days ≈ 243 runs, at 1–2 billed minutes each = 243–486 minutes a month. Hourly would be 730 runs = 730–1460 minutes, too close to the limit once anything else runs on the account.</li>
+    <li><b>GitHub minutes</b> (free on public repositories; a private one gets 2,000 free minutes a month, and each job is billed in whole minutes, rounded up): 8 runs a day × 30.4 days ≈ 243 runs, at 2–3 billed minutes each (a build job and a deploy job) = 486–729 minutes a month. Hourly would be 730 runs = 1460–2190 minutes, too close to the limit once anything else runs on the account.</li>
     <li><b>Open-Meteo calls</b> (free tier: fewer than 10,000 a day, non-commercial): the last update counted 28.8 calls (forecast 28.8, air quality not reported), so about 230 a day. Several places in one request count as several calls.</li>
   </ul>
 </section>
@@ -97,12 +126,14 @@
     <li><b>Delays.</b> Scheduled runs can start late. The age of the data is on every page.</li>
   </ul>
 </section>
+</div>
+</div>
 </main>
 <footer class="colophon">
   <p class="attribution"><a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Air quality: Copernicus Atmosphere Monitoring Service (CAMS) global forecasts, via Open-Meteo; contains modified Copernicus Atmosphere Monitoring Service information. Values are rounded and summarised here.</p>
   <p>Model estimates for a grid cell, not readings from a monitoring station. For Malaysia's official Air Pollutant Index see the Department of Environment's <a href="https://apims.doe.gov.my/">APIMS</a>. Not medical advice. <a href="../method/index.html">How this works</a>.</p>
   <p class="freshness" data-generated="2026-11-24T10:50:31.981Z">Built 2026-11-24 10:50 UTC from the Open-Meteo update for 2026-11-24 18:45 Malaysia time.<span class="age" data-age></span></p>
-  <p>Code MIT. Fonts: Fraunces and IBM Plex Mono, SIL Open Font License 1.1 (<a href="../assets/fonts/LICENSE-Fraunces.txt">text</a>, <a href="../assets/fonts/LICENSE-IBM-Plex-Mono.txt">text</a>). Haze alerts: <a href="../alerts.xml">RSS</a> · <a href="../alerts.json">JSON Feed</a> · data: <a href="../latest.json">latest.json</a>.</p>
+  <p><a href="https://github.com/VinVirtual/kl-air-watch">Source code</a>, MIT licence. Fonts: Fraunces and IBM Plex Mono, SIL Open Font License 1.1 (<a href="../assets/fonts/LICENSE-Fraunces.txt">text</a>, <a href="../assets/fonts/LICENSE-IBM-Plex-Mono.txt">text</a>). Haze alerts: <a href="../alerts.xml">RSS</a> · <a href="../alerts.json">JSON Feed</a> · data: <a href="../latest.json">latest.json</a>.</p>
 </footer>
 </body>
 </html>

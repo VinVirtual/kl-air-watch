@@ -4,11 +4,13 @@
 export const VERSION = '0.1.0';
 export const SCHEMA_VERSION = 1;
 
-export const USER_AGENT = `kl-air-watch/${VERSION} (+https://github.com/VinVirtual/kl-air-watch)`;
+export const REPO_URL = 'https://github.com/VinVirtual/kl-air-watch';
+export const USER_AGENT = `kl-air-watch/${VERSION} (+${REPO_URL})`;
 
-// Cloudflare Pages. Override with AIRWATCH_SITE_URL or --site-url once a custom domain
-// (suggested: https://air.lashvin.com/) is attached.
-export const DEFAULT_SITE_URL = 'https://kl-air-watch.pages.dev/';
+// The address the site is published at, used for canonical links, feeds and link previews.
+// Set AIRWATCH_SITE_URL (or --site-url) to your own https address when you deploy. The default
+// suits a local build served with: python3 -m http.server -d dist 8000
+export const DEFAULT_SITE_URL = 'http://localhost:8000/';
 export const SITE_TITLE = 'KL Air & Weather Watch';
 export const SITE_TITLE_MS = 'Pemantau Udara & Cuaca KL';
 export const SITE_TAGLINE = 'Weather and air quality for Kuala Lumpur and every Malaysian state, updated every three hours.';
@@ -80,7 +82,7 @@ export const CACHE_TTL_MS = 50 * 60 * 1000;
 // 600 a minute (https://open-meteo.com/en/terms). The update refuses to start a run whose
 // worst-case cost, at the configured schedule, could pass this share of the daily limit.
 export const OPEN_METEO_DAILY_LIMIT = 10_000;
-export const RUNS_PER_DAY = 8; // every 3 hours, see .github/workflows/update.yml
+export const RUNS_PER_DAY = 8; // every 3 hours, see .github/workflows/deploy-pages.yml
 
 // US EPA AQI categories (the index Open-Meteo computes; PM uses 24-hour rolling means).
 export const AQI_BANDS = Object.freeze([

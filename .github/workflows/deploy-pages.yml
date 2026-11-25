@@ -1,0 +1,91 @@
+# Run your own copy: fetch Open-Meteo, record finished days and haze alerts, build the site
+# and publish it on GitHub Pages.
+#
+# This repository does not host a site, so the schedule below is off and nothing runs unless
+# started by hand. In your fork: uncomment the two schedule lines, then set
+# Settings > Pages > Source to "GitHub Actions".
+#
+# Optional repository variable AIRWATCH_SITE_URL (e.g. https://air.example.org/) if you use a
+# custom domain; otherwise the GitHub Pages address is used.
+# Minutes: free on public repositories. A private fork gets 2,000 a month; at 8 runs a day this
+# uses about 490 to 730 (two short jobs a run, each billed as at least one minute).
+name: deploy-pages
+
+on:
+  # Uncomment the next two lines in your fork to update every three hours.
+  # schedule:
+  #   - cron: '23 */3 * * *' # 23 minutes past every third hour, UTC (07:23, 10:23, ... MYT)
+  workflow_dispatch:
+    inputs:
+      backfill:
+        description: 'Ask for this many past days once (0 = a normal update, at most 92)'
+        required: false
+        default: '0'
+
+permissions: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write # push data/history/*.json and data/alerts.json, nothing else
+      pages: read # read the Pages address for canonical links and feeds
+    env:
+      BACKFILL: ${{ github.event.inputs.backfill || '0' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      - id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Unit tests (no network, no dependencies)
+        run: npm test
+      - name: Fetch Open-Meteo and record history and alerts
+        run: |
+          if [[ ! "$BACKFILL" =~ ^[0-9]{1,2}$ ]]; then echo "bad backfill: $BACKFILL"; exit 1; fi
+          if [[ "$BACKFILL" == "0" ]]; then node scripts/airwatch.mjs update --no-cache
+          else node scripts/airwatch.mjs update --no-cache --backfill "$BACKFILL"; fi
+      - name: Build the site (fails on broken links, inline code, missing attribution)
+        env:
+          AIRWATCH_SITE_URL: ${{ vars.AIRWATCH_SITE_URL || format('{0}/', steps.pages.outputs.base_url) }}
+        run: node scripts/airwatch.mjs site
+      - name: Commit new history days and alerts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/airwatch.mjs check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history
+          if [[ -f data/alerts.json && ! -L data/alerts.json ]]; then git add data/alerts.json; fi
+          if git diff --cached --quiet; then echo "nothing new to commit"; exit 0; fi
+          git commit -m "data: update $(date -u +%Y-%m-%dT%H:%MZ)"
+          auth="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
+          git -c "http.https://github.com/.extraheader=$auth" pull --rebase origin "$GITHUB_REF_NAME"
+          node scripts/airwatch.mjs check
+          git -c "http.https://github.com/.extraheader=$auth" push origin "HEAD:$GITHUB_REF_NAME"
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      pages: write
+      id-token: write # deploy-pages proves the artifact came from this workflow
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

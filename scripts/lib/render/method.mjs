@@ -7,7 +7,7 @@ export const FREE_MINUTES = 2000;
 export const DAYS_PER_MONTH = 30.4;
 
 // GitHub bills each job in whole minutes, rounded up. One job per run.
-export function minutesMath(runsPerDay = RUNS_PER_DAY, minutesPerRun = [1, 2]) {
+export function minutesMath(runsPerDay = RUNS_PER_DAY, minutesPerRun = [2, 3]) {
   const runs = Math.round(runsPerDay * DAYS_PER_MONTH);
   return { runsPerDay, runs, low: runs * minutesPerRun[0], high: runs * minutesPerRun[1], free: FREE_MINUTES };
 }
@@ -71,9 +71,9 @@ export function renderMethod(snapshot) {
 </section>
 <section class="block prose" aria-labelledby="m-schedule">
   <h2 id="m-schedule">Schedule and costs</h2>
-  <p>A GitHub Actions workflow runs every ${24 / RUNS_PER_DAY} hours: it fetches, records new history days and alerts, builds this site and uploads it to Cloudflare Pages. GitHub can start scheduled runs late, or skip them when it is busy, so every page shows the data's own model hour and when it was built, and says so when the numbers are more than ${STALE_AFTER_HOURS} hours old.</p>
+  <p>A GitHub Actions workflow runs every ${24 / RUNS_PER_DAY} hours: it fetches, records new history days and alerts, builds this site and publishes it as static files. GitHub can start scheduled runs late, or skip them when it is busy, so every page shows the data's own model hour and when it was built, and says so when the numbers are more than ${STALE_AFTER_HOURS} hours old.</p>
   <ul>
-    <li><b>GitHub minutes</b> (private repositories get ${m.free.toLocaleString('en')} free minutes a month; each job is billed in whole minutes, rounded up): ${m.runsPerDay} runs a day × ${DAYS_PER_MONTH} days ≈ ${m.runs} runs, at 1–2 billed minutes each = ${m.low}–${m.high} minutes a month. Hourly would be ${hourly.runs} runs = ${hourly.low}–${hourly.high} minutes, too close to the limit once anything else runs on the account.</li>
+    <li><b>GitHub minutes</b> (free on public repositories; a private one gets ${m.free.toLocaleString('en')} free minutes a month, and each job is billed in whole minutes, rounded up): ${m.runsPerDay} runs a day × ${DAYS_PER_MONTH} days ≈ ${m.runs} runs, at 2–3 billed minutes each (a build job and a deploy job) = ${m.low}–${m.high} minutes a month. Hourly would be ${hourly.runs} runs = ${hourly.low}–${hourly.high} minutes, too close to the limit once anything else runs on the account.</li>
     <li><b>Open-Meteo calls</b> (free tier: fewer than ${OPEN_METEO_DAILY_LIMIT.toLocaleString('en')} a day, non-commercial): ${perRun ? html`the last update counted ${fmt(perRun, 1)} calls (forecast ${fmt(cost.forecastCost, 1)}${cost.airCost ? html`, air quality ${fmt(cost.airCost, 1)}` : ', air quality not reported'}), so about ${fmt(perRun * RUNS_PER_DAY, 0)} a day` : 'the cost is read from the API\'s rate-limit header on each update'}. Several places in one request count as several calls.</li>
   </ul>
 </section>
